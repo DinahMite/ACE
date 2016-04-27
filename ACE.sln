@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "ACE", "ACE.dtproj", "{1C97B1BA-945B-440E-A292-55C77640B9CC}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DatabasesSchema", "..\Database1\DatabasesSchema.sqlproj", "{BC043A4D-C99D-4675-81CB-71CF6E539F43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Scripts", "SQL Scripts", "{F887E445-2675-4482-8F18-4834FD545195}"
+	ProjectSection(SolutionItems) = preProject
+		..\FAS_FromHEPPS_PAS.sql = ..\FAS_FromHEPPS_PAS.sql
+		..\IndividualPayments.sql = ..\IndividualPayments.sql
+		..\InvoicesPaid.sql = ..\InvoicesPaid.sql
+		..\JPMChaseTransactions.sql = ..\JPMChaseTransactions.sql
+		..\PASOriginatingTrans_FAS.sql = ..\PASOriginatingTrans_FAS.sql
+		..\PASTransactions.sql = ..\PASTransactions.sql
+		..\ProCardTrans.sql = ..\ProCardTrans.sql
+		..\Reimbursements.sql = ..\Reimbursements.sql
+		..\SalaryFAS.sql = ..\SalaryFAS.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Development|Any CPU = Development|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C97B1BA-945B-440E-A292-55C77640B9CC}.Debug|Any CPU.ActiveCfg = Development
+		{1C97B1BA-945B-440E-A292-55C77640B9CC}.Debug|Any CPU.Build.0 = Development
+		{1C97B1BA-945B-440E-A292-55C77640B9CC}.Development|Any CPU.ActiveCfg = Development
+		{1C97B1BA-945B-440E-A292-55C77640B9CC}.Development|Any CPU.Build.0 = Development
+		{1C97B1BA-945B-440E-A292-55C77640B9CC}.Release|Any CPU.ActiveCfg = Development
+		{1C97B1BA-945B-440E-A292-55C77640B9CC}.Release|Any CPU.Build.0 = Development
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Development|Any CPU.Deploy.0 = Debug|Any CPU
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC043A4D-C99D-4675-81CB-71CF6E539F43}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

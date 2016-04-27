@@ -1,0 +1,985 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/27/2016 10:40:20 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="GONZO"
+  DTS:CreatorName="NETID\dynamo"
+  DTS:DTSID="{F9BEAB4C-4DF9-4C4D-A0C3-FA321E7D2DDC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.700.219"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="LoadUWSourceData"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{8FF4129C-0D84-4DAA-A1BB-ED6CC399CCD3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[edwpub.s.uw.edu]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{62222EC4-D9F8-40B9-B871-B1D3B653AD2E}"
+      DTS:ObjectName="edwpub.s.uw.edu">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=edwpub.s.uw.edu;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[xavier.pur.washington.edu.ACE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{25E903E0-0239-4B18-9721-9CB1F9B026AB}"
+      DTS:ObjectName="xavier.pur.washington.edu.ACE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=xavier.pur.washington.edu;Initial Catalog=ACE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\EDW_Data"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{425D39A5-D276-4A45-BF68-6218BAED4F46}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="EDW_Data"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\EDW_Data\ACE Object Sub Object"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="ACE Object Sub Object"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[ObjectSubObject]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\EDW_Data\ACE Object Sub Object.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[xavier.pur.washington.edu.ACE]"
+                  connectionManagerRefId="Package.ConnectionManagers[xavier.pur.washington.edu.ACE]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].Columns[BienniumYear]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="BienniumYear"
+                      externalMetadataColumnId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].ExternalColumns[BienniumYear]"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[BienniumYear]" />
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].Columns[ObjectSubObjectCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="ObjectSubObjectCode"
+                      externalMetadataColumnId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].ExternalColumns[ObjSubObjCode]"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[ObjectSubObjectCode]" />
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].Columns[Description]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].ExternalColumns[ObjSubObjDesc]"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[Description]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].ExternalColumns[BienniumYear]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="BienniumYear" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].ExternalColumns[ObjSubObjCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ObjSubObjCode" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input].ExternalColumns[ObjSubObjDesc]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ObjSubObjDesc" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\EDW_Data\ACE Object Sub Object.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\EDW_Data\ACE Object Sub Object.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\EDW_Data\ACE Object Sub Object.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ACE Object Sub Object.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\EDW_Data\ACE Object Sub Object.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\EDW_Data\ACE SalaryTransactions"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="ACE SalaryTransactions"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[SalaryTransactions]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\EDW_Data\ACE SalaryTransactions.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[xavier.pur.washington.edu.ACE]"
+                  connectionManagerRefId="Package.ConnectionManagers[xavier.pur.washington.edu.ACE]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].Columns[OrgDeptLevel]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="7"
+                      cachedName="OrgDeptLevel"
+                      externalMetadataColumnId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[OrgDeptLevel]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[OrgDeptLevel]" />
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].Columns[BudgetNbr]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="6"
+                      cachedName="BudgetNbr"
+                      externalMetadataColumnId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[BudgetNbr]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[BudgetNbr]" />
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].Columns[ObjSubObjCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="ObjSubObjCode"
+                      externalMetadataColumnId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[ObjSubObjCode]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[ObjSubObjCode]" />
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].Columns[acctgmonth]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="acctgmonth"
+                      externalMetadataColumnId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[AcctgMonth]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[acctgmonth]" />
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].Columns[TranPostingDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="TranPostingDate"
+                      externalMetadataColumnId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[TranPostingDate]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[TranPostingDate]" />
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].Columns[PayCycleEndDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="PayCycleEndDate"
+                      externalMetadataColumnId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[PayCycleEndDate]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[PayCycleEndDate]" />
+                    <inputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].Columns[Amount]"
+                      cachedDataType="numeric"
+                      cachedName="Amount"
+                      cachedPrecision="38"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[Amount]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[Amount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[OrgDeptLevel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="OrgDeptLevel" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[BudgetNbr]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="BudgetNbr" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[ObjSubObjCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ObjSubObjCode" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[AcctgMonth]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="AcctgMonth" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[TranPostingDate]"
+                      dataType="dbTimeStamp"
+                      name="TranPostingDate" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[PayCycleEndDate]"
+                      dataType="dbTimeStamp"
+                      name="PayCycleEndDate" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input].ExternalColumns[Amount]"
+                      dataType="cy"
+                      name="Amount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\EDW_Data\ACE SalaryTransactions.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\EDW_Data\ACE SalaryTransactions.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ACE SalaryTransactions.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\EDW_Data\ACE SalaryTransactions.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\EDW_Data\ODS Budget Activity Detail"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="ODS Budget Activity Detail"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select bi.OrgDeptLevel
+, Bi.BudgetNbr
+, left(accountcode,4) 'ObjSubObjCode'
+, acctgmonth
+, TranPostingDate
+, TranDate2 'PayCycleEndDate'
+, sum(tranamount)*-1 'Amount'
+from ODS.sec.BudgetActivityDetail bad
+inner join ODS.sec.BudgetIndex BI
+on bi.bienniumYear = bad.bienniumyear
+and bi.budgetnbr = bad.budgetnbr
+--Keegans criteria for cash only transactions
+where ((trancode in ('35','36','44','50','52','61','62','70','73')and AccountCode not like '9799%') or (TranCode='30'))
+and bi.BudgetNbr not like '12%' 
+and bi.BudgetNbr not like '24%' 
+--Salary, AP
+and OriginatingSystemCode in ('P')
+and DataSource!='XE1'
+and bi.BienniumYear = '2015'
+and (bad.AcctgMonth between '07' and '09' or TranPostingDate between '2016-01-01' and '2016-03-31')
+group by 
+bi.OrgDeptLevel
+, Bi.BudgetNbr
+, left(accountcode,4) 
+, TranPostingDate
+, acctgmonth
+, TranDate2</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\EDW_Data\ODS Budget Activity Detail.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[edwpub.s.uw.edu]"
+                  connectionManagerRefId="Package.ConnectionManagers[edwpub.s.uw.edu]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[OrgDeptLevel]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[OrgDeptLevel]"
+                      length="7"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[OrgDeptLevel]"
+                      name="OrgDeptLevel"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[BudgetNbr]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[BudgetNbr]"
+                      length="6"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[BudgetNbr]"
+                      name="BudgetNbr"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[ObjSubObjCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[ObjSubObjCode]"
+                      length="4"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[ObjSubObjCode]"
+                      name="ObjSubObjCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[acctgmonth]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[acctgmonth]"
+                      length="2"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[acctgmonth]"
+                      name="acctgmonth"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[TranPostingDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[TranPostingDate]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[TranPostingDate]"
+                      name="TranPostingDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[PayCycleEndDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[PayCycleEndDate]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[PayCycleEndDate]"
+                      name="PayCycleEndDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[Amount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[Amount]"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].Columns[Amount]"
+                      name="Amount"
+                      precision="38"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[OrgDeptLevel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="OrgDeptLevel" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[BudgetNbr]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="BudgetNbr" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[ObjSubObjCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ObjSubObjCode" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[acctgmonth]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="acctgmonth" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[TranPostingDate]"
+                      dataType="dbTimeStamp"
+                      name="TranPostingDate" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[PayCycleEndDate]"
+                      dataType="dbTimeStamp"
+                      name="PayCycleEndDate" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output].ExternalColumns[Amount]"
+                      dataType="numeric"
+                      name="Amount"
+                      precision="38"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[OrgDeptLevel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[OrgDeptLevel]"
+                      name="OrgDeptLevel" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[BudgetNbr]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[BudgetNbr]"
+                      name="BudgetNbr" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[ObjSubObjCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[ObjSubObjCode]"
+                      name="ObjSubObjCode" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[acctgmonth]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[acctgmonth]"
+                      name="acctgmonth" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[TranPostingDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[TranPostingDate]"
+                      name="TranPostingDate" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[PayCycleEndDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[PayCycleEndDate]"
+                      name="PayCycleEndDate" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[Amount]"
+                      dataType="numeric"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[Amount]"
+                      name="Amount"
+                      precision="38"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\EDW_Data\ODS Object Sub Object"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="ODS Object Sub Object"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select 
+BienniumYear,
+ObjectSubObjectCode,
+Description
+FROM ods.sec.ObjectSubObject</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\EDW_Data\ODS Object Sub Object.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[edwpub.s.uw.edu]"
+                  connectionManagerRefId="Package.ConnectionManagers[edwpub.s.uw.edu]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[BienniumYear]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].ExternalColumns[BienniumYear]"
+                      length="4"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[BienniumYear]"
+                      name="BienniumYear"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[ObjectSubObjectCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].ExternalColumns[ObjectSubObjectCode]"
+                      length="4"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[ObjectSubObjectCode]"
+                      name="ObjectSubObjectCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                      length="30"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].ExternalColumns[BienniumYear]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="BienniumYear" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].ExternalColumns[ObjectSubObjectCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ObjectSubObjectCode" />
+                    <externalMetadataColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Description" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[BienniumYear]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[BienniumYear]"
+                      name="BienniumYear" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[ObjectSubObjectCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[ObjectSubObjectCode]"
+                      name="ObjectSubObjectCode" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\EDW_Data.Paths[OLE DB Source Output]"
+              endId="Package\EDW_Data\ACE SalaryTransactions.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\EDW_Data\ODS Budget Activity Detail.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\EDW_Data.Paths[OLE DB Source Output1]"
+              endId="Package\EDW_Data\ACE Object Sub Object.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\EDW_Data\ODS Object Sub Object.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="130,42"
+          Id="Package\EDW_Data"
+          TopLeft="120,107" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\EDW_Data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="204,42"
+          Id="Package\EDW_Data\ODS Budget Activity Detail"
+          TopLeft="94.5,50.5" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\EDW_Data\ACE SalaryTransactions"
+          TopLeft="88,244" />
+        <EdgeLayout
+          Id="Package\EDW_Data.Paths[OLE DB Source Output]"
+          TopLeft="196.5,92.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-14,151.5"
+              Start="0,0"
+              End="-14,144">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,71.75"
+                    Point2="0,75.75"
+                    Point3="-4,75.75" />
+                  <mssgle:LineSegment
+                    End="-10,75.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-10,75.75"
+                    Point2="-14,75.75"
+                    Point3="-14,79.75" />
+                  <mssgle:LineSegment
+                    End="-14,144" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="189,42"
+          Id="Package\EDW_Data\ODS Object Sub Object"
+          TopLeft="489,52" />
+        <NodeLayout
+          Size="187,42"
+          Id="Package\EDW_Data\ACE Object Sub Object"
+          TopLeft="489,249" />
+        <EdgeLayout
+          Id="Package\EDW_Data.Paths[OLE DB Source Output1]"
+          TopLeft="583,94">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,155"
+              Start="0,0"
+              End="0,147.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,147.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\EDW_Data\ODS Budget Activity Detail">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\EDW_Data\ACE SalaryTransactions">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\EDW_Data\ODS Object Sub Object">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\EDW_Data\ACE Object Sub Object">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
